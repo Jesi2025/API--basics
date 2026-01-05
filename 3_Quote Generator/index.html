@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quote Generator</title>
+
+<style>
+  body {
+    font-family: Arial;
+    background: #f3f4f6;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+
+  .box {
+    background: white;
+    padding: 20px;
+    width: 380px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
+  }
+
+  button {
+    margin: 5px;
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  #quote {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  #author {
+    color: gray;
+    font-style: italic;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>🌟 Quote Generator</h2>
+
+  <p id="quote">Click New Quote</p>
+  <p id="author"></p>
+
+  <button onclick="getQuote()">New Quote</button>
+  <button onclick="copyQuote()">Copy</button>
+</div>
+
+<script>
+let currentQuote = "";
+
+async function getQuote() {
+  try {
+    const response = await fetch(
+      "https://official-joke-api.appspot.com/random_joke"
+    );
+
+    if (!response.ok) {
+      throw new Error("API Error");
+    }
+
+    const data = await response.json();
+
+    document.getElementById("quote").innerText = data.setup;
+    document.getElementById("author").innerText = data.punchline;
+
+    currentQuote = `${data.setup} - ${data.punchline}`;
+
+  } catch (error) {
+    document.getElementById("quote").innerText =
+      "❌ Joke not loading. Try again.";
+    document.getElementById("author").innerText = "";
+  }
+}
+
+function copyQuote() {
+  if (!currentQuote) {
+    alert("No quote to copy");
+    return;
+  }
+
+  navigator.clipboard.writeText(currentQuote)
+    .then(() => alert("✅ Quote copied"))
+    .catch(() => alert("❌ Copy not allowed"));
+}
+</script>
+
+</body>
+</html>

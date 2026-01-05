@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> News Aggregator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>📰 News Aggregator</h1>
+
+  <div class="controls">
+    <select id="country">
+      <option value="us" selected>USA</option>
+      <option value="in">India</option>
+      <option value="gb">UK</option>
+    </select>
+
+    <select id="category">
+      <option value="general">General</option>
+      <option value="business">Business</option>
+      <option value="technology">Technology</option>
+      <option value="sports">Sports</option>
+      <option value="entertainment">Entertainment</option>
+    </select>
+
+    <input id="search" placeholder="Search news">
+    <button onclick="loadNews()">Search</button>
+    <button onclick="refreshNews()">Refresh</button>
+  </div>
+
+  
+
+  <script src="script.js"></script>
+</body>
+</html>
